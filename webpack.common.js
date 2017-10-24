@@ -1,10 +1,9 @@
-const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
   context: path.resolve(__dirname, 'src'),
   entry: ['babel-polyfill', './app.js'],
   output: {
@@ -23,14 +22,14 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
+          fallback: 'style-loader',
           loader: ['css-loader']
         })
       },
       {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
+          fallback: 'style-loader',
           loader: [
             'css-loader',
             'autoprefixer-loader',
@@ -59,19 +58,12 @@ module.exports = {
     new ExtractTextPlugin('styles.css'),
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery',
-      moment: 'moment'
+      jQuery: 'jquery'
     }),
     new HtmlWebpackPlugin({
       template: '../index.html',
       filename: './index.html',
       hash: true
     })
-  ],
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    historyApiFallback: true,
-    port: 8090,
-    stats: 'minimal'
-  }
+  ]
 }

@@ -5,14 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run start-server\" \"npm run start-app\"",
-    "start-app": "webpack-dev-server",
+    "start-app": "webpack-dev-server --open --config webpack.dev.js",
     "start-server": "node server/index.js",
-    "build:prod": "webpack -p",
-    "build:dev": "webpack",
+    "build": "webpack --config webpack.prod.js",
     "clean": "npm cache clean && npm run rimraf -- node_modules dist",
     "clean:dist": "npm run rimraf -- dist",
-    "rimraf": "rimraf",
-    "watch:prod": "npm run build:prod -- --watch"
+    "rimraf": "rimraf"
   },
   "keywords": [],
   "author": "",
@@ -58,9 +56,11 @@
     "redux-logger": "^2.8.2",
     "rimraf": "^2.6.1",
     "style-loader": "^0.13.1",
+    "uglifyjs-webpack-plugin": "^1.0.1",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.4.1",
     "webpack-jquery-ui": "^1.0.0",
+    "webpack-merge": "^4.1.0",
     "whatwg-fetch": "^2.0.3"
   },
   "dependencies": {
