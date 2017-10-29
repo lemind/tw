@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run start-server\" \"npm run start-app\"",
-    "start-app": "webpack-dev-server --open --config webpack.dev.js",
+    "start-app": "webpack-dev-server --config webpack.dev.js",
     "start-server": "node server/index.js",
     "build": "webpack --config webpack.prod.js",
     "clean": "npm cache clean && npm run rimraf -- node_modules dist",
@@ -77,8 +77,10 @@
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
     "redux-form": "^6.8.0",
+    "redux-observable": "^0.16.0",
     "redux-persist": "^4.8.2",
     "redux-thunk": "^2.2.0",
+    "rxjs": "^5.5.2",
     "whatwg-fetch": "^2.0.3"
   }
 }
