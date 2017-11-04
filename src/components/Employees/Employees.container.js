@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { change, reset } from 'redux-form'
 
 import { EmployeesComponent } from './Employees.component';
 import { employeesActions } from '../../redux/employees/index';
@@ -12,6 +13,12 @@ export const EmployeesContainer = connect(
   function mapDispatchToProps(dispatch) {
     return {
       fetchEmployees: () => dispatch(employeesActions.fetchEmployees()),
+      changeFieldValue: (field, value) => {
+        dispatch(change('employee', field, value))
+      },
+      resetForm: () => {
+        dispatch(reset('employee'))
+      }
     };
   }
 )(EmployeesComponent);

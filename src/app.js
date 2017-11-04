@@ -28,7 +28,7 @@ const store = createStore(
 const renderApp = () => (
   render(
     <Provider store={store}>
-      <div>
+      <div className="container">
         <Header />
         <Employees />
       </div>

@@ -23,9 +23,9 @@ app.get('/employees', function (req, res) {
       id: 1,
       firstName: 'Tom',
       lastName: 'Figness',
-      position: 'Admin', // Admin, Developer, Manager, Tester, HR,
-      role: 'Admin', // User, Admin,
-      experience: 6, // (in months),
+      position: 'admin', // Admin, Developer, Manager, Tester, HR,
+      role: 'user', // User, Admin,
+      experience: 26, // (in months),
       shortDescription: 'Kind of tricky mate',
       longDescription: 'Firstly...'
     },
@@ -33,9 +33,9 @@ app.get('/employees', function (req, res) {
       id: 2,
       firstName: 'Ben',
       lastName: 'Boldon',
-      position: 'Admin', // Admin, Developer, Manager, Tester, HR,
-      role: 'Admin', // User, Admin,
-      experience: 6, // (in months),
+      position: 'developer',
+      role: 'admin',
+      experience: 6,
       shortDescription: 'Kind of tricky mate',
       longDescription: 'Firstly...'
     },
@@ -43,9 +43,9 @@ app.get('/employees', function (req, res) {
       id: 3,
       firstName: 'Mike',
       lastName: 'Velton',
-      position: 'Admin', // Admin, Developer, Manager, Tester, HR,
-      role: 'Admin', // User, Admin,
-      experience: 6, // (in months),
+      position: 'manager',
+      role: 'user',
+      experience: 1,
       shortDescription: 'Kind of tricky mate',
       longDescription: 'Firstly...'
     }
