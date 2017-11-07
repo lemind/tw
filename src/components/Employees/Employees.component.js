@@ -13,10 +13,12 @@ export class EmployeesComponent extends React.Component {
 
     this.actions = {};
     this.actions.fetchEmployees = props.fetchEmployees;
+    this.actions.employeeUpdate = props.employeeUpdate;
     this.actions.changeFieldValue = props.changeFieldValue;
     this.actions.resetForm = props.resetForm;
 
     this.selectHandler = this.selectHandler.bind(this);
+    this.saveForm = this.saveForm.bind(this);
     this.clearForm = this.clearForm.bind(this);
   }
 
@@ -48,6 +50,10 @@ export class EmployeesComponent extends React.Component {
     this.actions.resetForm();
   }
 
+  saveForm(employee) {
+    this.actions.employeeUpdate(employee);
+  }
+
   componentWillMount() {
     this.actions.fetchEmployees();
   }
@@ -55,6 +61,7 @@ export class EmployeesComponent extends React.Component {
   componentWillReceiveProps(state) {
     if (state.employees.list.length) {
       const newEmployees = state.employees.list.map((item) => {
+        // ToDo: do not send this param to server
         item.selected = false;
         return item;
       });
@@ -86,6 +93,7 @@ export class EmployeesComponent extends React.Component {
           <div className="col-xs-4 col-sm-offset-2">
             <EmployeeForm
               cancelForm={ this.clearForm }
+              saveForm= { this.saveForm }
             />
           </div>
         </div>

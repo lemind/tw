@@ -13,6 +13,9 @@ export const EmployeesContainer = connect(
   function mapDispatchToProps(dispatch) {
     return {
       fetchEmployees: () => dispatch(employeesActions.fetchEmployees()),
+      employeeUpdate: (employee) => {
+        dispatch(employeesActions.employeeUpdate(employee))
+      },
       changeFieldValue: (field, value) => {
         dispatch(change('employee', field, value))
       },

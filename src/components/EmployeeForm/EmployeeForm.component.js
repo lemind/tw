@@ -1,49 +1,30 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-const positionOptions = [
-  {
-    label: 'Admin',
-    value: 'admin'
-  },
-  {
-    label: 'Developer',
-    value: 'developer'
-  },
-  {
-    label: "Manager",
-    value: 'manager'
-  },
-  {
-    label: "Tester",
-    value: 'tester'
-  },
-  {
-    label: "HR",
-    value: 'hr'
-  }
-];
+import { API } from '../../api/index';
+import { POSITIONS } from '../../config';
 
 class EmployeeForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
 
-console.log('_form props__', props)
-    this.cancel = props.cancelForm;
+    this.positionOptions = POSITIONS;
+
+    this.cancelForm = props.cancelForm;
+    this.saveForm = props.saveForm;
 
     this.submitHandler = this.submitHandler.bind(this);
     this.cancelHandler = this.cancelHandler.bind(this);
   }
 
   submitHandler(submittedValues) {
-    console.log('8.8.8', submittedValues);
-    // go to api
+    this.saveForm.apply(null, [submittedValues]);
   }
 
   cancelHandler(e) {
     e.preventDefault();
-    this.cancel.apply();
+    this.cancelForm.apply();
   }
 
   render() {
@@ -76,9 +57,9 @@ console.log('_form props__', props)
             <div>
               <Field className="form-control" name="position" component="select">
                 <option></option>
-                {positionOptions.map((n, i) => (
+                { this.positionOptions.map((n, i) => (
                 <option key={ i } value={ n.value }>{ n.label }</option>
-                ))}
+                )) }
               </Field>
             </div>
           </div>
@@ -122,6 +103,7 @@ console.log('_form props__', props)
                 className="form-control"
                 id="longDescription"
                 name="longDescription"
+                rows="3"
                 component="textarea" />
             </div>
           </div>

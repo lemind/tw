@@ -7,6 +7,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 import { combineReducers } from 'redux';
 
+import styles from './app.less';
+
 import { rootReducer, rootEpic } from './redux/root';
 
 import { HeaderComponent as Header } from './components/Header/Header.component';

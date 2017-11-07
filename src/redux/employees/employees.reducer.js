@@ -27,6 +27,34 @@ export const reducer = (state = initialState, action) => {
         loading: false,
         error: action.error
       };
+    case types.EMPLOYEE_UPDATE:
+      return {
+        ...state,
+        loading: true
+      };
+    case types.EMPLOYEE_UPDATE_SUCCEEDED:
+      const newList = state.list.map( (item, index) => {
+        if(item.id !== action.payload.id) {
+          return item;
+        }
+
+        return {
+          ...item,
+          ...action.payload
+        };
+      });
+
+      return {
+        ...state,
+        list: newList,
+        loading: false
+      };
+    case types.EMPLOYEE_UPDATE_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      };
     default:
       return state
   }

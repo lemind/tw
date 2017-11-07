@@ -27,6 +27,12 @@ export class EmployeeComponent extends React.Component {
     this.select(this.state.employee);
   };
 
+  componentWillReceiveProps(state) {
+    this.setState({
+      employee: state.employee
+    });
+  }
+
   render() {
     const employee = this.state.employee;
 

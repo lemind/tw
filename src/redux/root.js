@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
 
-import { employeesReducer, fetchEmployeesEpic } from './employees/index';
+import { employeesReducer, employeesEpics } from './employees/index';
 import { reducer as formReducer } from 'redux-form'
 
 export const rootReducer = combineReducers({
@@ -10,5 +10,6 @@ export const rootReducer = combineReducers({
 });
 
 export const rootEpic = combineEpics(
-  fetchEmployeesEpic
+  employeesEpics.fetchEmployeesEpic,
+  employeesEpics.employeesUpdateEpic
 );
