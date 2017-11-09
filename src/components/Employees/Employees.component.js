@@ -1,4 +1,5 @@
 import React from 'react';
+import { Modal } from 'react-bootstrap';
 //import './Employees.styles.less';
 import { EmployeeComponent as Employee } from '../Employee/Employee.component';
 import { EmployeeFormComponent as EmployeeForm } from '../EmployeeForm/EmployeeForm.component';
@@ -8,18 +9,24 @@ export class EmployeesComponent extends React.Component {
     super();
 
     this.state = {
-      employees: []
+      employees: [],
+      permission: false,
+      showModal: false
     };
 
     this.actions = {};
     this.actions.fetchEmployees = props.fetchEmployees;
     this.actions.employeeUpdate = props.employeeUpdate;
+    this.actions.employeeDelete = props.employeeDelete;
     this.actions.changeFieldValue = props.changeFieldValue;
     this.actions.resetForm = props.resetForm;
 
     this.selectHandler = this.selectHandler.bind(this);
     this.saveForm = this.saveForm.bind(this);
+    this.deleteEmployee = this.deleteEmployee.bind(this);
     this.clearForm = this.clearForm.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
   selectHandler(employee) {
@@ -35,6 +42,8 @@ export class EmployeesComponent extends React.Component {
     for (var prop in employee) {
       this.actions.changeFieldValue(prop, employee[prop]);
     }
+
+    this.openModal();
   }
 
   clearForm() {
@@ -51,7 +60,15 @@ export class EmployeesComponent extends React.Component {
   }
 
   saveForm(employee) {
-    this.actions.employeeUpdate(employee);
+    var serverEmployee = {...employee};
+
+    delete serverEmployee.selected;
+
+    this.actions.employeeUpdate(serverEmployee);
+  }
+
+  deleteEmployee(employeeId) {
+    this.actions.employeeDelete(employeeId);
   }
 
   componentWillMount() {
@@ -60,9 +77,14 @@ export class EmployeesComponent extends React.Component {
 
   componentWillReceiveProps(state) {
     if (state.employees.list.length) {
+      var selectedItemId = this.state.employees.find((localItem) => {
+        if (localItem.selected) {
+          return localItem;
+        }
+      });
+
       const newEmployees = state.employees.list.map((item) => {
-        // ToDo: do not send this param to server
-        item.selected = false;
+        item.selected = !!(selectedItemId && selectedItemId.id === item.id);
         return item;
       });
 
@@ -70,6 +92,14 @@ export class EmployeesComponent extends React.Component {
         employees: newEmployees
       });
     }
+  }
+
+  closeModal() {
+    this.setState({ showModal: false });
+  }
+
+  openModal() {
+    this.setState({ showModal: true });
   }
 
   render() {
@@ -93,10 +123,20 @@ export class EmployeesComponent extends React.Component {
           <div className="col-xs-4 col-sm-offset-2">
             <EmployeeForm
               cancelForm={ this.clearForm }
-              saveForm= { this.saveForm }
+              saveForm={ this.saveForm }
+              permission={ this.state.permission }
+              deleteEmployee={ this.deleteEmployee }
             />
           </div>
         </div>
+        <Modal show={this.state.showModal} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <h4 className="text-danger">Caution!</h4>
+          </Modal.Header>
+          <Modal.Body>
+            <p className="text-danger">You do not have permission for editing or deleting this employee.</p>
+          </Modal.Body>
+        </Modal>
       </div>
     )
   };

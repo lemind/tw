@@ -7,19 +7,27 @@ import { POSITIONS } from '../../config';
 class EmployeeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      permission: props.permission
+    };
 
     this.positionOptions = POSITIONS;
 
     this.cancelForm = props.cancelForm;
     this.saveForm = props.saveForm;
+    this.deleteEmployee = props.deleteEmployee;
 
     this.submitHandler = this.submitHandler.bind(this);
     this.cancelHandler = this.cancelHandler.bind(this);
+    this.deleteHandler = this.deleteHandler.bind(this);
   }
 
   submitHandler(submittedValues) {
     this.saveForm.apply(null, [submittedValues]);
+  }
+
+  deleteHandler(submittedValues) {
+    this.deleteEmployee.apply(null, [submittedValues.id]);
   }
 
   cancelHandler(e) {
@@ -40,6 +48,7 @@ class EmployeeForm extends React.Component {
               name="firstName"
               type="text"
               component="input"
+              disabled={!this.state.permission}
             />
           </div>
           <div className="form-group">
@@ -50,12 +59,18 @@ class EmployeeForm extends React.Component {
               name="lastName"
               type="text"
               component="input"
+              disabled={!this.state.permission}
             />
           </div>
           <div className="form-group">
             <label>Position</label>
             <div>
-              <Field className="form-control" name="position" component="select">
+              <Field
+                className="form-control"
+                name="position"
+                component="select"
+                disabled={!this.state.permission}
+              >
                 <option></option>
                 { this.positionOptions.map((n, i) => (
                 <option key={ i } value={ n.value }>{ n.label }</option>
@@ -67,11 +82,23 @@ class EmployeeForm extends React.Component {
             <label>Role</label>
             <div>
               <label className="radio-inline">
-                <Field name="role" component="input" type="radio" value="user" />
+                <Field
+                  name="role"
+                  component="input"
+                  type="radio"
+                  value="user"
+                  disabled={!this.state.permission}
+                />
                 User
               </label>
               <label className="radio-inline">
-                <Field name="role" component="input" type="radio" value="admin" />
+                <Field
+                  name="role"
+                  component="input"
+                  type="radio"
+                  value="admin"
+                  disabled={!this.state.permission}
+                />
                 Admin
               </label>
             </div>
@@ -108,8 +135,18 @@ class EmployeeForm extends React.Component {
             </div>
           </div>
           <div className="btn-toolbar">
-            <button type="submit" className="btn btn-primary">Submit</button>
-            <button className="btn btn-warning" onClick={ this.cancelHandler }>Cancel</button>
+            <button
+              type="submit"
+              className="btn btn-success"
+            >Submit</button>
+            <button
+              className="btn btn-warning"
+              onClick={ this.cancelHandler }
+            >Cancel</button>
+            <button
+              className="btn btn-danger"
+              onClick={ handleSubmit(this.deleteHandler) }
+            >Delete</button>
           </div>
         </form>
       </div>

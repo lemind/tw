@@ -32,7 +32,21 @@ employeesEpics.employeesUpdateEpic = action$ =>
         })
         .catch(error => of(
           actions.employeeUpdateFailed({
-            status: '' + response.status,
+            status: '' + error.status,
+          })
+        ));
+    });
+
+employeesEpics.employeesDeleteEpic = action$ =>
+  action$.ofType(types.EMPLOYEE_DELETE)
+    .mergeMap(action => {
+      return API.deleteEmployee(action.employeeId)
+        .map(response => {
+          return actions.employeeDeleteSucceeded(response.result)
+        })
+        .catch(error => of(
+          actions.employeeDeleteFailed({
+            status: '' + error.status,
           })
         ));
     });

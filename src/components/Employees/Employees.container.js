@@ -16,6 +16,9 @@ export const EmployeesContainer = connect(
       employeeUpdate: (employee) => {
         dispatch(employeesActions.employeeUpdate(employee))
       },
+      employeeDelete: (employeeId) => {
+        dispatch(employeesActions.employeeDelete(employeeId))
+      },
       changeFieldValue: (field, value) => {
         dispatch(change('employee', field, value))
       },

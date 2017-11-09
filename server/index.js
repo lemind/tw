@@ -67,4 +67,31 @@ app.patch('/employee/:id', function (req, res) {
   }
 })
 
+app.delete('/employee/:id', function (req, res) {
+  // ToDo: make func for work with file
+  var employeersFile = path.resolve(__dirname, 'employees.json');
+  var employeeId = req.params.id;
+
+  try {
+    var fileContents = fs.readFileSync(employeersFile, 'utf8');
+    var currentEmployees = JSON.parse(fileContents);
+
+    var newEmployees = currentEmployees.filter((_employee) => {
+      return _employee.id != employeeId
+    });
+
+    var newFileData = JSON.stringify(newEmployees);
+    fs.writeFile(employeersFile, newFileData, function(err) {
+      if(err) {
+        throw {type: 'Writing error', message: 'Saving into file error'};
+      }
+    });
+
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({result: { 'id': employeeId }, status: 0}));
+  } catch (err) {
+    res.send(JSON.stringify({error: err, status: 102}));
+  }
+})
+
 app.listen(3000);

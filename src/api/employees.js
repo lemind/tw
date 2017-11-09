@@ -15,6 +15,13 @@ export const employeesAPI = {
       }
     })
     .map(e => e.response);
+  },
+  deleteEmployee: (employeeId) => {
+    return ajax({
+      url: `${API_HOST}/employee/${employeeId}`,
+      method: 'DELETE'
+    })
+    .map(e => e.response);
   }
 
 };

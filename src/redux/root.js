@@ -11,5 +11,6 @@ export const rootReducer = combineReducers({
 
 export const rootEpic = combineEpics(
   employeesEpics.fetchEmployeesEpic,
-  employeesEpics.employeesUpdateEpic
+  employeesEpics.employeesUpdateEpic,
+  employeesEpics.employeesDeleteEpic
 );

@@ -23,5 +23,17 @@ export const actions = {
   employeeUpdateFailed: (error) => ({
     type: types.EMPLOYEE_UPDATE_FAILED,
     error
+  }),
+  employeeDelete: (employeeId) => ({
+    type: types.EMPLOYEE_DELETE,
+    employeeId
+  }),
+  employeeDeleteSucceeded: (payload) => ({
+    type: types.EMPLOYEE_DELETE_SUCCEEDED,
+    payload
+  }),
+  employeeDeleteFailed: (error) => ({
+    type: types.EMPLOYEE_DELETE_FAILED,
+    error
   })
 }
