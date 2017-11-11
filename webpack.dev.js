@@ -4,6 +4,9 @@ const path = require('path');
 
 module.exports = merge(common, {
   devtool: 'inline-source-map',
+  watchOptions: {
+    poll: 1000
+  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,

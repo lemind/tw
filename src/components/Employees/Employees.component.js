@@ -1,8 +1,11 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+
 //import './Employees.styles.less';
 import { EmployeeComponent as Employee } from '../Employee/Employee.component';
+import { UserSwitchContainer as UserSwitch } from '../UserSwitch/UserSwitch.container';
 import { EmployeeFormComponent as EmployeeForm } from '../EmployeeForm/EmployeeForm.component';
+import { ADMIN_CONFIG } from '../../config';
 
 export class EmployeesComponent extends React.Component {
   constructor(props) {
@@ -11,7 +14,8 @@ export class EmployeesComponent extends React.Component {
     this.state = {
       employees: [],
       permission: false,
-      showModal: false
+      showModal: false,
+      userType: 'user'
     };
 
     this.actions = {};
@@ -27,6 +31,11 @@ export class EmployeesComponent extends React.Component {
     this.clearForm = this.clearForm.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.getPermission = this.getPermission.bind(this);
+  }
+
+  getPermission() {
+    return this.state.userType === 'admin';
   }
 
   selectHandler(employee) {
@@ -36,14 +45,15 @@ export class EmployeesComponent extends React.Component {
     });
 
     this.setState({
-      employees: newEmployees
+      employees: newEmployees,
+      permission: this.getPermission(employee)
     });
 
     for (var prop in employee) {
       this.actions.changeFieldValue(prop, employee[prop]);
     }
 
-    this.openModal();
+    !this.getPermission() && this.openModal();
   }
 
   clearForm() {
@@ -68,7 +78,10 @@ export class EmployeesComponent extends React.Component {
   }
 
   deleteEmployee(employeeId) {
-    this.actions.employeeDelete(employeeId);
+    // ToDo: change for bootstrap confirm
+    if (confirm('Are you sure?')) {
+      this.actions.employeeDelete(employeeId);
+    }
   }
 
   componentWillMount() {
@@ -76,6 +89,12 @@ export class EmployeesComponent extends React.Component {
   }
 
   componentWillReceiveProps(state) {
+    if (state.auth.userType !== this.state.userType) {
+      this.setState({
+        userType: state.auth.userType
+      });
+    }
+
     if (state.employees.list.length) {
       var selectedItemId = this.state.employees.find((localItem) => {
         if (localItem.selected) {
@@ -120,15 +139,20 @@ export class EmployeesComponent extends React.Component {
             />
             ))}
           </div>
-          <div className="col-xs-4 col-sm-offset-2">
+          <div className="col-xs-4 col-sm-offset-1">
             <EmployeeForm
               cancelForm={ this.clearForm }
               saveForm={ this.saveForm }
-              permission={ this.state.permission }
+              permission={ this.getPermission() }
               deleteEmployee={ this.deleteEmployee }
             />
           </div>
+          <div className="col-xs-2 col-sm-offset-1">
+            <span>Admin mode</span>
+            <UserSwitch/>
+          </div>
         </div>
+
         <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <h4 className="text-danger">Caution!</h4>

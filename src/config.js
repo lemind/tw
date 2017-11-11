@@ -22,3 +22,7 @@ export const POSITIONS = [
     value: 'hr'
   }
 ];
+
+export const ADMIN_CONFIG = {
+  userCanNotEdit: ['Admin', 'Manager']
+};

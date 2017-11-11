@@ -7,9 +7,6 @@ import { POSITIONS } from '../../config';
 class EmployeeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      permission: props.permission
-    };
 
     this.positionOptions = POSITIONS;
 
@@ -36,7 +33,7 @@ class EmployeeForm extends React.Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, permission } = this.props;
     return (
       <div>
         <form onSubmit={ handleSubmit(this.submitHandler) }>
@@ -48,7 +45,7 @@ class EmployeeForm extends React.Component {
               name="firstName"
               type="text"
               component="input"
-              disabled={!this.state.permission}
+              disabled={ true }
             />
           </div>
           <div className="form-group">
@@ -59,7 +56,7 @@ class EmployeeForm extends React.Component {
               name="lastName"
               type="text"
               component="input"
-              disabled={!this.state.permission}
+              disabled={ true }
             />
           </div>
           <div className="form-group">
@@ -69,7 +66,7 @@ class EmployeeForm extends React.Component {
                 className="form-control"
                 name="position"
                 component="select"
-                disabled={!this.state.permission}
+                disabled={ !permission }
               >
                 <option></option>
                 { this.positionOptions.map((n, i) => (
@@ -87,7 +84,7 @@ class EmployeeForm extends React.Component {
                   component="input"
                   type="radio"
                   value="user"
-                  disabled={!this.state.permission}
+                  disabled={ !permission }
                 />
                 User
               </label>
@@ -97,7 +94,7 @@ class EmployeeForm extends React.Component {
                   component="input"
                   type="radio"
                   value="admin"
-                  disabled={!this.state.permission}
+                  disabled={ !permission }
                 />
                 Admin
               </label>
@@ -145,6 +142,7 @@ class EmployeeForm extends React.Component {
             >Cancel</button>
             <button
               className="btn btn-danger"
+              disabled={ !permission }
               onClick={ handleSubmit(this.deleteHandler) }
             >Delete</button>
           </div>

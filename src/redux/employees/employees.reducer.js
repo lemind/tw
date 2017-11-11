@@ -69,7 +69,7 @@ export const reducer = (state = initialState, action) => {
         ...state.list.slice(0, indexDeleted),
         ...state.list.slice(indexDeleted + 1)
       ];
-console.log('array without deleted el', newList);
+
       return {
         ...state,
         list: newList,
