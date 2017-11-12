@@ -4,7 +4,7 @@ import Switch from 'react-toggle-switch'
 export class UserSwitchComponent extends React.Component {
   constructor(props) {
     super();
-console.log('@@@', props.auth)
+
     this.state = {
       admin: this.isAdmin(props.auth.userType)
     };

@@ -34,6 +34,7 @@ class EmployeeForm extends React.Component {
 
   render() {
     const { handleSubmit, permission } = this.props;
+
     return (
       <div>
         <form onSubmit={ handleSubmit(this.submitHandler) }>
@@ -138,11 +139,13 @@ class EmployeeForm extends React.Component {
             >Submit</button>
             <button
               className="btn btn-warning"
+              name="cancelButton"
               onClick={ this.cancelHandler }
             >Cancel</button>
             <button
               className="btn btn-danger"
               disabled={ !permission }
+              name="deleteButton"
               onClick={ handleSubmit(this.deleteHandler) }
             >Delete</button>
           </div>
@@ -155,3 +158,5 @@ class EmployeeForm extends React.Component {
 export const EmployeeFormComponent = reduxForm({
   form: 'employee'
 })(EmployeeForm)
+
+export { EmployeeForm as EmployeeFormPure }

@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Employee 1`] = `
+<div>
+  <OverlayTrigger
+    defaultOverlayShown={false}
+    overlay={
+      <Popover
+        bsClass="popover"
+        id="popover-trigger-hover-focus"
+        placement="right"
+      />
+    }
+    placement="bottom"
+    trigger={
+      Array [
+        "hover",
+        "focus",
+      ]
+    }
+  >
+    <div
+      className="row "
+      onClick={[Function]}
+    >
+      <span
+        className="col-xs-5"
+      >
+         
+      </span>
+      <span
+        className="col-xs-3"
+      />
+      <span
+        className="col-xs-4"
+      />
+    </div>
+  </OverlayTrigger>
+</div>
+`;

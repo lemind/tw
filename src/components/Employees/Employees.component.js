@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 
-//import './Employees.styles.less';
 import { EmployeeComponent as Employee } from '../Employee/Employee.component';
 import { UserSwitchContainer as UserSwitch } from '../UserSwitch/UserSwitch.container';
 import { EmployeeFormComponent as EmployeeForm } from '../EmployeeForm/EmployeeForm.component';

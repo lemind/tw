@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Employees 1`] = `
+<div
+  className="jumbotron"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-xs-4"
+    >
+      <div
+        className="row bg-primary text-white"
+      >
+        <span
+          className="col-xs-5"
+        >
+          Name
+        </span>
+        <span
+          className="col-xs-3"
+        >
+          Role
+        </span>
+        <span
+          className="col-xs-4"
+        >
+          Experience
+        </span>
+      </div>
+      0
+    </div>
+    <div
+      className="col-xs-4 col-sm-offset-1"
+    >
+      <ReduxForm
+        cancelForm={[Function]}
+        deleteEmployee={[Function]}
+        permission={false}
+        saveForm={[Function]}
+      />
+    </div>
+    <div
+      className="col-xs-2 col-sm-offset-1"
+    >
+      <span>
+        Admin mode
+      </span>
+      <Connect(UserSwitchComponent) />
+    </div>
+  </div>
+  <Modal
+    animation={true}
+    autoFocus={true}
+    backdrop={true}
+    bsClass="modal"
+    dialogComponentClass={[Function]}
+    enforceFocus={true}
+    keyboard={true}
+    manager={
+      ModalManager {
+        "add": [Function],
+        "containers": Array [],
+        "data": Array [],
+        "handleContainerOverflow": true,
+        "hideSiblingNodes": true,
+        "isTopModal": [Function],
+        "modals": Array [],
+        "remove": [Function],
+      }
+    }
+    onHide={[Function]}
+    renderBackdrop={[Function]}
+    restoreFocus={true}
+    show={false}
+  >
+    <ModalHeader
+      bsClass="modal-header"
+      closeButton={true}
+      closeLabel="Close"
+    >
+      <h4
+        className="text-danger"
+      >
+        Caution!
+      </h4>
+    </ModalHeader>
+    <ModalBody
+      bsClass="modal-body"
+      componentClass="div"
+    >
+      <p
+        className="text-danger"
+      >
+        You do not have permission for editing or deleting this employee.
+      </p>
+    </ModalBody>
+  </Modal>
+</div>
+`;
