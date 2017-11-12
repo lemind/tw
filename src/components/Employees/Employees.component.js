@@ -69,6 +69,8 @@ export class EmployeesComponent extends React.Component {
   }
 
   saveForm(employee) {
+    if (!employee.id) return;
+
     var serverEmployee = {...employee};
 
     delete serverEmployee.selected;
@@ -77,6 +79,7 @@ export class EmployeesComponent extends React.Component {
   }
 
   deleteEmployee(employeeId) {
+    if (!employeeId) return;
     // ToDo: change for bootstrap confirm
     if (confirm('Are you sure?')) {
       this.actions.employeeDelete(employeeId);
