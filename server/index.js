@@ -22,11 +22,8 @@ app.get('/', function (req, res) {
 })
 
 app.get('/employees', function (req, res) {
-  var employeersFile = path.resolve(__dirname, 'employees.json');
-
   try {
-    var fileContents = fs.readFileSync(employeersFile, 'utf8');
-    var employees = JSON.parse(fileContents);
+    var employees = getEmployees();
 
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({result: employees, status: 0}));
@@ -36,14 +33,11 @@ app.get('/employees', function (req, res) {
 })
 
 app.patch('/employee/:id', function (req, res) {
-  // ToDo: make func for work with file
-  var employeersFile = path.resolve(__dirname, 'employees.json');
   var newEmployee = req.body.employee;
   var employeeId = req.params.id;
 
   try {
-    var fileContents = fs.readFileSync(employeersFile, 'utf8');
-    var currentEmployees = JSON.parse(fileContents);
+    var currentEmployees = getEmployees();
 
     var newEmployees = currentEmployees.map((_employee) => {
       if (_employee.id === newEmployee.id) {
@@ -53,12 +47,7 @@ app.patch('/employee/:id', function (req, res) {
       }
     });
 
-    var newFileData = JSON.stringify(newEmployees);
-    fs.writeFile(employeersFile, newFileData, function(err) {
-      if(err) {
-        throw {type: 'Writing error', message: 'Saving into file error'};
-      }
-    });
+    saveEmployees(newEmployees);
 
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({result: newEmployee, status: 0}));
@@ -68,24 +57,16 @@ app.patch('/employee/:id', function (req, res) {
 })
 
 app.delete('/employee/:id', function (req, res) {
-  // ToDo: make func for work with file
-  var employeersFile = path.resolve(__dirname, 'employees.json');
   var employeeId = req.params.id;
 
   try {
-    var fileContents = fs.readFileSync(employeersFile, 'utf8');
-    var currentEmployees = JSON.parse(fileContents);
+    var currentEmployees = getEmployees();
 
     var newEmployees = currentEmployees.filter((_employee) => {
       return _employee.id != employeeId
     });
 
-    var newFileData = JSON.stringify(newEmployees);
-    fs.writeFile(employeersFile, newFileData, function(err) {
-      if(err) {
-        throw {type: 'Writing error', message: 'Saving into file error'};
-      }
-    });
+    saveEmployees(newEmployees);
 
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({result: { 'id': employeeId }, status: 0}));
@@ -93,5 +74,21 @@ app.delete('/employee/:id', function (req, res) {
     res.send(JSON.stringify({error: err, status: 102}));
   }
 })
+
+var getEmployees = function () {
+  var employeersFile = path.resolve(__dirname, 'employees.json');
+  var fileContents = fs.readFileSync(employeersFile, 'utf8');
+  return JSON.parse(fileContents);
+}
+
+var saveEmployees = function (employees) {
+  var employeersFile = path.resolve(__dirname, 'employees.json');
+  var newFileData = JSON.stringify(employees);
+  fs.writeFile(employeersFile, newFileData, function(err) {
+    if(err) {
+      throw {type: 'Writing error', message: 'Saving into file error'};
+    }
+  });
+}
 
 app.listen(3000);
